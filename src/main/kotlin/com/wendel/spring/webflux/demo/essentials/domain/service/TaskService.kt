@@ -20,18 +20,18 @@ class TaskService(
             .map(Task::insert)
             .flatMap(this::save)
 
-//    fun list(): Mono<List<TaskDTO>> {
-//        return Mono.just(taskProvider.listTasks())
-//            .map {
-//                taskList -> taskList.map {
-//                    TaskDTO(it)
-//                }
-//            }
-//    }
+    fun list(): Mono<List<TaskDTO>> {
+        return Mono.just(taskProvider.listTasks())
+            .map {
+                taskList -> taskList.map {
+                    TaskDTO(it)
+                }
+            }
+    }
 
-    fun list(): Flux<TaskDTO> =
-        Flux.fromIterable(taskProvider.listTasks())
-            .map { task -> TaskDTO(task) }
+//    fun list(): Flux<TaskDTO> =
+//        Flux.fromIterable(taskProvider.listTasks())
+//            .map { task -> TaskDTO(task) }
 //            .map(::TaskDTO)
 
     private fun save(task: Task): Mono<TaskDTO> {
