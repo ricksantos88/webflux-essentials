@@ -16,6 +16,10 @@ class TaskService(
 
     fun insert(taskDto: CreateTaskDTO): Mono<TaskDTO> =
         Mono.just(taskDto)
+            .doOnNext { dto ->
+                println("title: ${dto.title}")
+                check(dto.title.isNotBlank()) { throw Exception("title cannot is blank") }
+            }
             .map{ Task(it) }
             .map(Task::insert)
             .flatMap(this::save)
