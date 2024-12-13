@@ -18,7 +18,7 @@ data class Task (
     constructor(taskDTO: CreateTaskDTO): this(
         title = taskDTO.title,
         description = taskDTO.description,
-       priority = taskDTO.priority
+        priority = taskDTO.priority
     )
 
 

@@ -3,10 +3,10 @@ package com.wendel.spring.webflux.demo.essentials.domain.service
 import com.wendel.spring.webflux.demo.essentials.controller.model.CreateTaskDTO
 import com.wendel.spring.webflux.demo.essentials.controller.model.TaskDTO
 import com.wendel.spring.webflux.demo.essentials.domain.database.entity.Task
-import com.wendel.spring.webflux.demo.essentials.domain.model.TaskState
 import com.wendel.spring.webflux.demo.essentials.domain.provider.TaskProvider
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
@@ -24,14 +24,10 @@ class TaskService(
             .map(Task::insert)
             .flatMap(this::save)
 
-    fun list(): Mono<List<TaskDTO>> {
-        return Mono.just(taskProvider.listTasks())
-            .map {
-                taskList -> taskList.map {
-                    TaskDTO(it)
-                }
-            }
-    }
+    fun findTasks(pageNumber: Int, pageSize: Int): Mono<Page<TaskDTO>> =
+        Mono.fromCallable { taskProvider.listTasksPaginated(PageRequest.of(pageNumber, pageSize)) }
+            .map { it.map(::TaskDTO) }
+
 
 //    fun list(): Flux<TaskDTO> =
 //        Flux.fromIterable(taskProvider.listTasks())
