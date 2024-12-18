@@ -37,4 +37,8 @@ class TaskService(
     private fun save(task: Task): Mono<TaskDTO> {
         return Mono.just(task).map { taskProvider.insertTask(task) }.map { TaskDTO(it) }
     }
+
+    fun deleteById(id: String): Mono<Void> {
+        return Mono.fromRunnable { taskProvider.deleteById(id) }
+    }
 }

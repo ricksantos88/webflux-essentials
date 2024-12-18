@@ -14,4 +14,7 @@ class TaskProvider(
     fun listTasksPaginated(pageable: Pageable): Page<Task> = taskRepository.findAll(pageable)
 
     fun insertTask(task: Task): Task = taskRepository.save(task)
+
+    fun deleteById(id: String) = taskRepository.deleteById(id)
+
 }

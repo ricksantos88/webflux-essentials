@@ -4,6 +4,7 @@ import com.wendel.spring.webflux.demo.essentials.controller.model.CreateTaskDTO
 import com.wendel.spring.webflux.demo.essentials.controller.model.TaskDTO
 import com.wendel.spring.webflux.demo.essentials.domain.service.TaskService
 import org.springframework.data.domain.Page
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
@@ -21,5 +22,9 @@ class TaskController(
 
     @PostMapping
     fun createTask(@RequestBody taskDTO: CreateTaskDTO) = taskService.insert(taskDTO)
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    fun deleteTask(@PathVariable id: String) = taskService.deleteById(id)
 
 }
