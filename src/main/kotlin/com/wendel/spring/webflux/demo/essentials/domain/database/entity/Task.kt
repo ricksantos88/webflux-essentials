@@ -18,16 +18,9 @@ data class Task (
     constructor(taskDTO: CreateTaskDTO): this(
         title = taskDTO.title,
         description = taskDTO.description,
-        priority = taskDTO.priority
+        priority = taskDTO.priority,
+        state = TaskState.INSERT
     )
-
-
-    fun insert(): Task {
-        this.state = TaskState.INSERT
-        return this
-    }
-
-
 
 //    companion object {
 //        fun builder() = TaskBuilder()

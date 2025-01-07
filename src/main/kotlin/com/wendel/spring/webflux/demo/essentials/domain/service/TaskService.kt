@@ -21,7 +21,6 @@ class TaskService(
                 check(dto.title.isNotBlank()) { throw Exception("title cannot is blank") }
             }
             .map{ Task(it) }
-            .map(Task::insert)
             .flatMap(this::save)
 
     fun findTasks(pageNumber: Int, pageSize: Int): Mono<Page<TaskDTO>> =
